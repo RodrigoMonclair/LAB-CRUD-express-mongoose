@@ -15,4 +15,17 @@ purchaseRoute.post("/purchase/:albumId", async (req, res) => {
   }
 });
 
+purchaseRoute.get("/purchase/:purchaseId", async (req, res)=>{
+    try {
+        const { purchaseId } = req.params;
+    const purchase = await PurchaseModel.findById(purchaseId).populate('album')
+    return res.status(200).json(purchase)
+    } catch (error) {
+        console.log(error);
+    return res.status(400).json(error.errors);
+    }
+    
+    
+})
+
 export default purchaseRoute;
